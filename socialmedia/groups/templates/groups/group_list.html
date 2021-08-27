@@ -1,0 +1,38 @@
+{% extends "groups/group_base.html" %}
+{% block pregroup %}
+  <header class="bg-primary py-2 text-white mb-5">
+    <div class="container">
+      <div class="">
+        <h1>Groups</h1>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block group_content %}
+    <div class="container">
+
+            {% for group in groups %}
+                <a href="{% url 'groups:single' slug=group.slug %}" style="text-decoration:none;color:inherit;">
+
+
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>{{group.name}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <h6>{{group.description|safe}}</h6>
+
+                    </div>
+                    <div class="card-footer">
+                        <h6 style="display:inline;">Group Members:  {{group.members.count}}</h6>
+                        <h6 style="display:inline;float:right">Group Posts:  {{group.posts.count}}</h6>
+                    </div>
+                </div>
+
+                </a>
+            {% endfor %}
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+{% load active_link_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Awesome Blog</title>
+    <style>
+        .active1 {
+         padding-left:5px;
+         border-left: #5f7175 3px solid;
+
+        }
+    </style>
+    <!--    BOOTSTRAP      -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <!--  FONTS  -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+    <!--    CSS         -->
+<!--    <link rel="stylesheet" href="{% static 'socialmedia/css/master.css' %}">-->
+
+
+    <!--    FONT-AWESOME    -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--  CKEDITOR  -->
+<!--    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>-->
+<!--    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>-->
+</head>
+<body class="font1">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-family: 'Inter', sans-serif;">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'all' %}">AWESOME GROUP BLOG</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse navbar-right justify-content-end" id="navbarNav">
+      <div class="navbar-nav">
+          {% if user.is_authenticated %}
+          {% url 'all' as url %}
+            <li class="{% if request.path == url %}active active1{% endif %}">
+                <a class="nav-link" href="{{url}}"> POSTS</a>
+            </li>
+          {% url 'posts:create' as url %}
+          <li class="{% if request.path == url %}active active1{% endif %}">
+              <a class="nav-link" href="{{url}}"> <i class="fa fa-pencil" aria-hidden="true"></i> NEW POST</a>
+          </li>
+          {% url 'groups:all' as url %}
+          <li class="{% if request.path == url %}active active1{% endif %}">
+              <a class="nav-link" href="{{url}}"> GROUPS</a>
+          </li>
+          {% url 'groups:create' as url %}
+          <li class="{% if request.path == url %}active active1{% endif %}">
+              <a class="nav-link" href="{{url}}"> <i class="fa fa-pencil" aria-hidden="true"></i> NEW GROUP</a>
+          </li>
+          {% url 'accounts:about_user' pk=request.user.pk as url %}
+          <li class="{% if request.path == url %}active active1{% endif %}">
+              <a class="nav-link" href="{{url}}"><i class="fa fa-user" aria-hidden="true"></i> {{request.user|upper}}</a>
+          </li>
+          {% url 'accounts:logout' as url %}
+          <li class="{% if request.path == url %}active active1{% endif %}">
+              <a class="nav-link" href="{{url}}"><i class="fa fa-user-times" aria-hidden="true"></i> LOG OUT</a>
+          </li>
+
+          {% else %}
+          {% url 'all' as url %}
+          <li class="{% if request.path == url %}active active1{% endif %}">
+              <a class="nav-link" href="{{url}}">POSTS</a>
+          </li>
+          {% url 'groups:all' as url %}
+          <li class="{% if request.path == url %}active active1{% endif %}">
+              <a class="nav-link" href="{{url}}">GROUPS</a>
+          </li>
+          {% url 'accounts:login' as url %}
+          <li class="{% if request.path == url %}active active1{% endif %}">
+              <a class="nav-link" href="{{url}}">LOG IN</a>
+          </li>
+          {% url 'accounts:signup' as url %}
+          <li class="{% if request.path == url %}active active1{% endif %}">
+              <a class="nav-link" href="{{url}}">SIGN UP</a>
+          </li>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+    <div class="" style="font-family: 'Inter', sans-serif;">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+crossorigin="anonymous"></script>
+</body>
+</html>

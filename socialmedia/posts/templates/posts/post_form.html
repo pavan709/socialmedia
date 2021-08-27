@@ -1,0 +1,30 @@
+{% extends "posts/post_base.html" %}
+{% load bootstrap4 %}
+
+{% block post_content %}
+<div class="container mt-5">
+    <h4 class="mb-5">Create a new Post</h4>
+    <form action="" id="postForm" method="POST">
+        {% csrf_token %}
+        <div>
+            {{ form.subject.errors }}
+            <label for="{{ form.title.id_for_label }}"><h5>Title</h5></label>
+            {{ form.title }}
+        </div>
+        <div>
+            <label for="{{ form.message.id_for_label }}"><h5>Write your story</h5></label>
+            <div>
+                {{ form.media }}
+            {{ form.message }}
+            </div>
+        </div>
+        <div class="mt-2">
+            <label for="{{ form.group.id_for_label }}"><h5>Group</h5></label>
+            {{ form.group }}
+        </div>
+
+        <input type="submit" value="Post" class="btn btn-primary mt-2">
+    </form>
+</div>
+
+{% endblock %}

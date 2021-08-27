@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+  <header class="bg-primary py-2 text-white mb-5">
+    <div class="container">
+      <div class="">
+        <h1>About {{username|title}}</h1>
+      </div>
+    </div>
+  </header>
+<div class="container">
+    <a href="" style="text-decoration:none;"><h4>@{{username}}</h4></a>
+<h2>Groups:</h2>
+{% if user_groups.count is not 0 %}
+    {% for group in user_groups %}
+        <a href="{% url 'groups:single' slug=group.slug %}" style="text-decoration:none;color:inherit;">
+            <div class="card mb-2">
+                <div class="card-header text-center">
+                    <h4>{{group.name}}</h4>
+                </div>
+                <div class="card-body">
+                    <h6>{{group.description|safe}}</h6>
+
+                </div>
+                <div class="card-footer">
+                    <h6 style="display:inline;">Group Members:  {{group.members.count}}</h6>
+                    <h6 style="display:inline;float:right">Group Posts:  {{group.posts.count}}</h6>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+{% else %}
+    <p>{{username}} is not joined ay group</p>
+{% endif %}
+
+{% if posts.count is not 0 %}
+<h2>Posts: </h2>
+    {% for post in posts %}
+<a href="{% url 'posts:single' pk=post.pk %}" style="color:inherit;text-decoration: none;">
+    <div class="card font1 mb-2" style="">
+        <div class="card-header">
+            <div style="display:inline">
+                <h3 style="display:inline;">{{post.title|capfirst}}</h3>
+            <p style="display:inline;"> by {{post.user}}</p>
+            </div>
+            {% if post.group is  not  None %}
+            <p class="" style="display:inline; float:right;">In {{post.group|title}} Group</p>
+            {% endif %}
+
+        </div>
+        <div class="card-body" style="font1">
+            <p class="card-text">{{post.message|safe|truncatechars:200}}</p>
+            <div><button class="btn btn-primary">Read More...</button></div>
+
+        </div>
+        <div class="card-footer text-muted">
+            Published on: {{post.created_at}}
+        </div>
+    </div>
+</a>
+{% endfor %}
+{% else %}
+    <p>{{username}} is not posted yet!</p>
+{% endif %}
+</div>
+
+{% endblock %}
